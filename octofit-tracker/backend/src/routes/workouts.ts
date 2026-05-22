@@ -1,10 +1,13 @@
 import { Router } from 'express';
+import { WorkoutModel } from '../models';
 
 const router = Router();
 
-router.get('/', (_req, res) => {
+router.get('/', async (_req, res) => {
+  const workouts = await WorkoutModel.find().sort({ difficulty: 1, name: 1 }).lean();
+
   res.json({
-    data: [],
+    data: workouts,
     resource: 'workouts',
   });
 });

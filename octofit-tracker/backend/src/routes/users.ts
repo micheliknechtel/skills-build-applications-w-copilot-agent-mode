@@ -1,10 +1,13 @@
 import { Router } from 'express';
+import { UserModel } from '../models';
 
 const router = Router();
 
-router.get('/', (_req, res) => {
+router.get('/', async (_req, res) => {
+  const users = await UserModel.find().sort({ fullName: 1 }).lean();
+
   res.json({
-    data: [],
+    data: users,
     resource: 'users',
   });
 });
